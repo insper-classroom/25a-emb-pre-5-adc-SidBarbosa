@@ -7,15 +7,25 @@
 #include <stdio.h>
 #include "hardware/pwm.h"
 
-const int PWM_0_PIN = 4;
+const int PWM_0_PIN = 4;  // LED R
+const int PWM_1_PIN = 6;  // LED G
 
 void led_task(void *p) {
+    // Configuração do PWM para LED R (PWM_0_PIN)
     gpio_set_function(PWM_0_PIN, GPIO_FUNC_PWM);
-    uint slice_num = pwm_gpio_to_slice_num(PWM_0_PIN);
-    pwm_set_clkdiv(slice_num, 125);
-    pwm_set_wrap(slice_num, 100);
-    pwm_set_chan_level(slice_num, PWM_CHAN_A, 80);
-    pwm_set_enabled(slice_num, true);
+    uint slice_num_0 = pwm_gpio_to_slice_num(PWM_0_PIN);
+    pwm_set_clkdiv(slice_num_0, 125);
+    pwm_set_wrap(slice_num_0, 100);
+    pwm_set_chan_level(slice_num_0, PWM_CHAN_A, 80);  // 80% duty cycle
+    pwm_set_enabled(slice_num_0, true);
+
+    // Configuração do PWM para LED G (PWM_1_PIN)
+    gpio_set_function(PWM_1_PIN, GPIO_FUNC_PWM);
+    uint slice_num_1 = pwm_gpio_to_slice_num(PWM_1_PIN);
+    pwm_set_clkdiv(slice_num_1, 125);
+    pwm_set_wrap(slice_num_1, 100);
+    pwm_set_chan_level(slice_num_1, PWM_CHAN_A, 20);  // 20% duty cycle
+    pwm_set_enabled(slice_num_1, true);
 
     while (true) {
     }
