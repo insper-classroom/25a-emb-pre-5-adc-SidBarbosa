@@ -25,11 +25,27 @@ void data_task(void *p) {
 
 void process_task(void *p) {
     int data = 0;
+    int vetor[5];
+    int indice = 0;
+    int media = 0;
 
     while (true) {
         if (xQueueReceive(xQueueData, &data, 100)) {
             // implementar filtro aqui!
+            vetor[indice] = data;
+            int sum = 0;
+            for(int i = 0; i<5;i++){
+                sum += vetor[i];
+            }
 
+            media = sum/5;
+
+            indice ++;
+            if(indice >=5){
+                indice = 0;
+            }
+
+            printf("%d\n",media);
 
 
 
